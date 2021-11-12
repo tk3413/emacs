@@ -171,10 +171,11 @@ changes the color of text when typing hex to the color it is
 #+end_src
 
 *** inside project virtual environment
-```
+#+begin_src shell :eval no
 source venv/bin/activate
 pip3 install jedi autopep8 yapf black autopep8 flake8
-```
+#+end_src
+
 * rss
 ** install
 use elfeed
