@@ -10,6 +10,7 @@ inhibit-startup-screen t           ; disable startup screen
 (fset 'yes-or-no-p 'y-or-n-p)      ; prefer y/n to yes/no
 (menu-bar-mode -1)                 ; disable menu bar
 (tool-bar-mode -1)                 ; disable tool bar
+(global-hl-line-mode +1)           ; highlight current line
 
 (setq default-directory "~/")      ; set default to home
 
@@ -108,6 +109,8 @@ inhibit-startup-screen t           ; disable startup screen
 
 (use-package yaml-mode)
 (setq byte-compile-warnings '(cl-functions)) ; here because this package throws warnings on init
+
+(setq elpy-rpc-virtualenv-path 'current)
 
 (setq elfeed-db-directory "~/elfeed.org")
 
