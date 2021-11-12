@@ -165,6 +165,16 @@ changes the color of text when typing hex to the color it is
 (setq byte-compile-warnings '(cl-functions)) ; here because this package throws warnings on init
 #+end_src
 
+** python
+#+begin_src emacs-lisp
+(setq elpy-rpc-virtualenv-path 'current)
+#+end_src
+
+*** inside project virtual environment
+```
+source venv/bin/activate
+pip3 install jedi autopep8 yapf black autopep8 flake8
+```
 * rss
 ** install
 use elfeed
