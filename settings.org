@@ -59,6 +59,13 @@ inhibit-startup-screen t           ; disable startup screen
 (load-theme 'zenburn t)
 #+end_src
 
+** help
+#+begin_src emacs-lisp
+      (use-package which-key
+	:init (which-key-mode)
+	:diminish (which-key-mode)
+	:config (setq which-key-idle-delay 1))
+#+end_src
 * completion
 ** auto fill
 #+begin_src emacs-lisp .
