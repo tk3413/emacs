@@ -107,10 +107,13 @@ inhibit-startup-screen t           ; disable startup screen
 (use-package json-mode
  :mode "\\.json\\'")
 
+(setq elpy-rpc-virtualenv-path 'current)
+
+(require 'rust-mode)
+(setq rust-format-on-save t)
+
 (use-package yaml-mode)
 (setq byte-compile-warnings '(cl-functions)) ; here because this package throws warnings on init
-
-(setq elpy-rpc-virtualenv-path 'current)
 
 (setq elfeed-db-directory "~/elfeed.org")
 

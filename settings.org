@@ -160,21 +160,27 @@ changes the color of text when typing hex to the color it is
  :mode "\\.json\\'")
 #+end_src
 
-** yaml
-#+begin_src emacs-lisp
-(use-package yaml-mode)
-(setq byte-compile-warnings '(cl-functions)) ; here because this package throws warnings on init
-#+end_src
-
 ** python
 #+begin_src emacs-lisp
-(setq elpy-rpc-virtualenv-path 'current)
+  (setq elpy-rpc-virtualenv-path 'current)
+
 #+end_src
 
 *** inside project virtual environment
 #+begin_src shell :eval no
 source venv/bin/activate
 pip3 install jedi autopep8 yapf black autopep8 flake8
+#+end_src
+
+** rust
+#+begin_src emacs-lisp
+(require 'rust-mode)
+(setq rust-format-on-save t)
+#+end_src
+** yaml
+#+begin_src emacs-lisp
+(use-package yaml-mode)
+(setq byte-compile-warnings '(cl-functions)) ; here because this package throws warnings on init
 #+end_src
 
 * rss

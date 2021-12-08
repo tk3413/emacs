@@ -8,7 +8,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(elpy magit yaml-mode json-mode rainbow-delimiters highlight-indent-guides define-word company rainbow-mode zenburn-theme use-package)))
+   '(rust-mode feature-mode elpy magit yaml-mode json-mode rainbow-delimiters highlight-indent-guides define-word company rainbow-mode zenburn-theme use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
