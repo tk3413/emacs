@@ -20,17 +20,22 @@ inhibit-startup-screen t           ; disable startup screen
 (global-hl-line-mode +1)           ; highlight current line
 
 (setq default-directory "~/")      ; set default to home
+(setq treemacs-icon-size 0)        ; disable icons with treemacs
 #+end_src
 
 ** line numbers
 #+begin_src emacs-lisp
-(add-hook 'conf-mode-hook #'display-line-numbers-mode)
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-(add-hook 'text-mode-hook #'display-line-numbers-mode)
+  (add-hook 'conf-mode-hook #'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+  (add-hook 'text-mode-hook #'display-line-numbers-mode)
+  (add-hook 'dired-mode-hook
+	    (lambda ()
+	      (dired-hide-details-mode)
+	      ))
 
-(setq-default
- display-line-numbers-current-absolute nil
- display-line-numbers-width 2)
+  (setq-default
+   display-line-numbers-current-absolute nil
+   display-line-numbers-width 2)
 #+end_src
 
 ** packages
@@ -161,6 +166,27 @@ changes the color of text when typing hex to the color it is
 #+end_src
 
 * languages
+** javascript
+#+begin_src emacs-lisp
+  (use-package js2-mode)
+
+  (use-package add-node-modules-path
+    :config
+    (add-hook 'js-mode-hook #'add-node-modules-path))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  (js2r-add-keybindings-with-prefix "C-c C-r")
+  (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+  ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+  ;; unbind it.
+  (define-key js-mode-map (kbd "M-.") nil)
+
+  (add-hook 'js2-mode-hook (lambda ()
+			     (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+#+end_src
 ** json
 #+begin_src emacs-lisp
 (use-package json-mode
