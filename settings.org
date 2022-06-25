@@ -3,6 +3,8 @@
 #+PROPERTY: header-args :results silent
 
 * bootstrap
+** shell path on mac
+Please visit [[https://github.com/purcell/exec-path-from-shell][this link]] and perform the setup so that the shell is linked.
 ** defaults
 #+begin_src emacs-lisp
 (setq-default
@@ -16,7 +18,7 @@ inhibit-startup-screen t           ; disable startup screen
 (blink-cursor-mode 0)              ; prefer non-blinking cursor
 (fset 'yes-or-no-p 'y-or-n-p)      ; prefer y/n to yes/no
 (menu-bar-mode -1)                 ; disable menu bar
-(tool-bar-mode -1)                 ; disable tool bar
+(tool-bar-mode -1)
 (global-hl-line-mode +1)           ; highlight current line
 
 (setq default-directory "~/")      ; set default to home
@@ -61,7 +63,7 @@ inhibit-startup-screen t           ; disable startup screen
 
 ** theme
 #+begin_src emacs-lisp .
-(load-theme 'zenburn t)
+(load-theme 'solarized-light t)
 #+end_src
 
 ** help
@@ -166,6 +168,10 @@ changes the color of text when typing hex to the color it is
 #+end_src
 
 * languages
+** clojure
+#+begin_src emacs-lisp
+
+#+end_src
 ** javascript
 #+begin_src emacs-lisp
   (use-package js2-mode)
