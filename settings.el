@@ -9,7 +9,7 @@ inhibit-startup-screen t           ; disable startup screen
 (blink-cursor-mode 0)              ; prefer non-blinking cursor
 (fset 'yes-or-no-p 'y-or-n-p)      ; prefer y/n to yes/no
 (menu-bar-mode -1)                 ; disable menu bar
-(tool-bar-mode -1)                 ; disable tool bar
+(tool-bar-mode -1)
 (global-hl-line-mode +1)           ; highlight current line
 
 (setq default-directory "~/")      ; set default to home
@@ -43,7 +43,7 @@ inhibit-startup-screen t           ; disable startup screen
  use-package-always-defer t
  use-package-always-ensure t)
 
-(load-theme 'zenburn t)
+(load-theme 'solarized-light t)
 
 (use-package which-key
   :init (which-key-mode)
@@ -113,6 +113,8 @@ inhibit-startup-screen t           ; disable startup screen
   (text-mode . whitespace-mode)
   :custom
   (whitespace-style '(face empty indentation::space tab trailing)))
+
+
 
 (use-package js2-mode)
 
