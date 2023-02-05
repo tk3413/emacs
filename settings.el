@@ -1,11 +1,10 @@
 (setq-default
-cursor-in-non-selected-windows nil ; disable cursor in inactive windows
-cursor-type '(hbar . 2)            ; underline cursor instead of block
-delete-by-moving-to-trash t        ; delete files to trash
-initial-scratch-message ""         ; default string in scratch buffer
-inhibit-startup-screen t           ; disable startup screen
-)
-
+ cursor-in-non-selected-windows nil ; disable cursor in inactive windows
+ cursor-type '(hbar . 2)            ; underline cursor instead of block
+ delete-by-moving-to-trash t        ; delete files to trash
+ initial-scratch-message ""         ; default string in scratch buffer
+ inhibit-startup-screen t           ; disable startup screen
+ )
 (fset 'yes-or-no-p 'y-or-n-p)      ; prefer y/n to yes/no
 (menu-bar-mode -1)                 ; disable menu bar
 (tool-bar-mode -1)
@@ -13,6 +12,12 @@ inhibit-startup-screen t           ; disable startup screen
 
 (setq default-directory "~/")      ; set default to home
 (setq treemacs-icon-size 0)        ; disable icons with treemacs
+(global-set-key (kbd "C-.") #'other-window)
+(global-set-key (kbd "C-;") #'prev-window)
+
+(defun prev-window ()
+  (interactive)
+  (other-window -1))
 
 (add-hook 'conf-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
@@ -24,11 +29,10 @@ inhibit-startup-screen t           ; disable startup screen
 
 (require 'package)
 (setq package-archives
-  '(("gnu"          . "https://elpa.gnu.org/packages/")
-    ("melpa"        . "http://melpa.org/packages/")
-    ("melpa-stable" . "http://stable.melpa.org/packages/")
-    ("elpy"         . "http://jorgenschaefer.github.io/packages/")
-    ("org"          . "http://orgmode.org/elpa/")))
+      '(("gnu"          . "https://elpa.gnu.org/packages/")
+	("melpa"        . "http://melpa.org/packages/")
+	("melpa-stable" . "http://stable.melpa.org/packages/")
+	("org"          . "http://orgmode.org/elpa/")))
 (package-initialize)
 
 (unless (package-installed-p 'use-package)
@@ -75,8 +79,8 @@ inhibit-startup-screen t           ; disable startup screen
 (use-package define-word)
 
 (use-package rainbow-delimiters
-:hook
-(prog-mode . rainbow-delimiters-mode))
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 
 (use-package whitespace
   :ensure nil
@@ -122,9 +126,18 @@ inhibit-startup-screen t           ; disable startup screen
 (use-package lsp-treemacs)
 
 (use-package json-mode
- :mode "\\.json\\'")
+  :mode "\\.json\\'")
 
-(setq elpy-rpc-virtualenv-path 'current)
+(use-package python-mode
+  :ensure t
+  :hook (python-mode . lsp-deferred)
+  :custom
+  ;; NOTE: Set these if Python 3 is called "python3" on your system!
+  ;; (python-shell-interpreter "python3")
+  ;; (dap-python-executable "python3")
+  (dap-python-debugger 'debugpy)
+  :config
+  (require 'dap-python))
 
 (require 'rust-mode)
 (setq rust-format-on-save t)
@@ -140,6 +153,6 @@ inhibit-startup-screen t           ; disable startup screen
 (global-set-key (kbd "C-x w") 'elfeed)
 
 (setq elfeed-feeds
-  '(
-("http://news.ycombinator.com/rss" hacker)
-   ))
+      '(
+	("http://news.ycombinator.com/rss" hacker)
+	))

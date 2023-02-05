@@ -21,6 +21,13 @@ Please visit [[https://github.com/purcell/exec-path-from-shell][this link]] and 
 
   (setq default-directory "~/")      ; set default to home
   (setq treemacs-icon-size 0)        ; disable icons with treemacs
+  (global-set-key (kbd "C-.") #'other-window)
+  (global-set-key (kbd "C-;") #'prev-window)
+
+  (defun prev-window ()
+    (interactive)
+    (other-window -1))
+
 #+end_src
 
 ** line numbers
@@ -41,7 +48,6 @@ Please visit [[https://github.com/purcell/exec-path-from-shell][this link]] and 
 	'(("gnu"          . "https://elpa.gnu.org/packages/")
 	  ("melpa"        . "http://melpa.org/packages/")
 	  ("melpa-stable" . "http://stable.melpa.org/packages/")
-	  ("elpy"         . "http://jorgenschaefer.github.io/packages/")
 	  ("org"          . "http://orgmode.org/elpa/")))
   (package-initialize)
 #+END_SRC
@@ -187,8 +193,16 @@ changes the color of text when typing hex to the color it is
 
 ** python
 #+begin_src emacs-lisp
-  (setq elpy-rpc-virtualenv-path 'current)
-
+  (use-package python-mode
+    :ensure t
+    :hook (python-mode . lsp-deferred)
+    :custom
+    ;; NOTE: Set these if Python 3 is called "python3" on your system!
+    ;; (python-shell-interpreter "python3")
+    ;; (dap-python-executable "python3")
+    (dap-python-debugger 'debugpy)
+    :config
+    (require 'dap-python))
 #+end_src
 
 *** inside project virtual environment
