@@ -6,7 +6,6 @@ initial-scratch-message ""         ; default string in scratch buffer
 inhibit-startup-screen t           ; disable startup screen
 )
 
-(blink-cursor-mode 0)              ; prefer non-blinking cursor
 (fset 'yes-or-no-p 'y-or-n-p)      ; prefer y/n to yes/no
 (menu-bar-mode -1)                 ; disable menu bar
 (tool-bar-mode -1)
@@ -18,10 +17,6 @@ inhibit-startup-screen t           ; disable startup screen
 (add-hook 'conf-mode-hook #'display-line-numbers-mode)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (add-hook 'text-mode-hook #'display-line-numbers-mode)
-(add-hook 'dired-mode-hook
-	  (lambda ()
-	    (dired-hide-details-mode)
-	    ))
 
 (setq-default
  display-line-numbers-current-absolute nil
@@ -45,21 +40,18 @@ inhibit-startup-screen t           ; disable startup screen
 
 (load-theme 'solarized-light t)
 
+(add-hook 'emacs-startup-hook 'treemacs)
+
+(add-hook 'after-init-hook 'auto-dim-other-buffers-mode)
+
 (use-package which-key
   :init (which-key-mode)
   :diminish (which-key-mode)
   :config (setq which-key-idle-delay 1))
 
-(use-package simple
-  :ensure nil
-  :hook
-  (org-mode  . auto-fill-mode)
-  (prog-mode . auto-fill-mode)
-  (text-mode . auto-fill-mode))
-
 (use-package rainbow-mode
   :hook
-  (prog-mode . rainbow-mode)
+  (Prog-mode . rainbow-mode)
   :custom
   (rainbow-x-colors nil))
 
@@ -67,7 +59,6 @@ inhibit-startup-screen t           ; disable startup screen
   :hook
   (after-init . global-company-mode)
   :custom
-  (company-backends '(company-capf))
   (company-dabbrev-downcase nil)
   (company-dabbrev-ignore-case nil)
   (company-dabbrev-other-buffers nil)
@@ -79,28 +70,9 @@ inhibit-startup-screen t           ; disable startup screen
   (company-tooltip-align-annotations t)
   (company-tooltip-flip-when-above t)
   (company-tooltip-offset-display nil)
-  (company-tooltip-width-grow-only t)
-  :config
-  (company-tng-mode))
-
-(use-package company-box
-  :disabled
-  :hook
-  (company-mode . company-box-mode)
-  :custom
-  (company-box-enable-icon nil)
-  (company-box-max-candidates 50)
-  (company-box-scrollbar nil)
-  (company-box-show-single-candidate 'always))
+  (company-tooltip-width-grow-only t))
 
 (use-package define-word)
-
-(use-package highlight-indent-guides
-  :hook
-  (python-mode . highlight-indent-guides-mode)
-  (scss-mode . highlight-indent-guides-mode)
-  :custom
-  (highlight-indent-guides-method 'character))
 
 (use-package rainbow-delimiters
 :hook
@@ -134,6 +106,20 @@ inhibit-startup-screen t           ; disable startup screen
 
 (add-hook 'js2-mode-hook (lambda ()
 			   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+(use-package flycheck)
+(use-package yasnippet :config (yas-global-mode))
+(use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :config (setq lsp-completion-enable-additional-text-edit nil))
+(use-package hydra)
+(use-package lsp-ui)
+(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+(use-package dap-java :ensure nil)
+(use-package helm-lsp)
+(use-package helm
+  :config (helm-mode))
+(use-package lsp-treemacs)
 
 (use-package json-mode
  :mode "\\.json\\'")
