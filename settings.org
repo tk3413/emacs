@@ -66,7 +66,6 @@ Please visit [[https://github.com/purcell/exec-path-from-shell][this link]] and 
   (load-theme 'solarized-light t)
 #+end_src
 
-
 ** treemacs
 #+begin_src emacs-lisp
   (add-hook 'emacs-startup-hook 'treemacs)
@@ -143,6 +142,8 @@ changes the color of text when typing hex to the color it is
     (whitespace-style '(face empty indentation::space tab trailing)))
 #+end_src
 
+* lsp
+
 * languages
 ** clojure
 #+begin_src emacs-lisp
@@ -202,6 +203,7 @@ changes the color of text when typing hex to the color it is
     ;; (dap-python-executable "python3")
     (dap-python-debugger 'debugpy)
     :config
+    (lsp-enable-which-key-integration t)
     (require 'dap-python))
 #+end_src
 
